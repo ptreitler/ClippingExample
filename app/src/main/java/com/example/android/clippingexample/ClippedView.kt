@@ -1,6 +1,8 @@
 package com.example.android.clippingexample
 
 import android.content.Context
+import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Path
 import android.util.AttributeSet
@@ -21,10 +23,10 @@ class ClippedView @JvmOverloads constructor(
 
     private val path = Path()
 
+    private val clipRectLeft = resources.getDimension(R.dimen.clipRectLeft)
+    private val clipRectTop = resources.getDimension(R.dimen.clipRectTop)
     private val clipRectRight = resources.getDimension(R.dimen.clipRectRight)
     private val clipRectBottom = resources.getDimension(R.dimen.clipRectBottom)
-    private val clipRectTop = resources.getDimension(R.dimen.clipRectTop)
-    private val clipRectLeft = resources.getDimension(R.dimen.clipRectLeft)
 
     private val rectInset = resources.getDimension(R.dimen.rectInset)
     private val smallRectOffset = resources.getDimension(R.dimen.smallRectOffset)
@@ -42,4 +44,63 @@ class ClippedView @JvmOverloads constructor(
     private val rowThree = rowTwo + rectInset + clipRectBottom
     private val rowFour = rowThree + rectInset + clipRectBottom
     private val textRow = rowFour + (1.5f * clipRectBottom)
+
+    override fun onDraw(canvas: Canvas) {
+        super.onDraw(canvas)
+
+        drawBackAndUnclippedRectangle(canvas)
+        drawDifferenceClippingExample(canvas)
+        drawCircularClippingExample(canvas)
+        drawIntersectionClippingExample(canvas)
+        drawCombinedClippingExample(canvas)
+        drawRoundedRectangleClippingExample(canvas)
+        drawOutsideClippingExample(canvas)
+        drawSkewedTextExample(canvas)
+        drawTranslatedTextExample(canvas)
+        // drawQuickRejectExample(canvas)
+    }
+
+    private fun drawBackAndUnclippedRectangle(canvas: Canvas) {
+    }
+
+    private fun drawDifferenceClippingExample(canvas: Canvas) {
+    }
+
+    private fun drawCircularClippingExample(canvas: Canvas) {
+    }
+
+    private fun drawIntersectionClippingExample(canvas: Canvas) {
+    }
+
+    private fun drawCombinedClippingExample(canvas: Canvas) {
+    }
+
+    private fun drawRoundedRectangleClippingExample(canvas: Canvas) {
+    }
+
+    private fun drawOutsideClippingExample(canvas: Canvas) {
+    }
+
+    private fun drawTranslatedTextExample(canvas: Canvas) {
+    }
+
+    private fun drawSkewedTextExample(canvas: Canvas) {
+    }
+
+    private fun drawQuickRejectExample(canvas: Canvas) {
+    }
+
+    private fun drawClippedRectangle(canvas: Canvas) {
+        canvas.clipRect(clipRectLeft, clipRectTop, clipRectRight, clipRectBottom)
+
+        canvas.drawColor(Color.WHITE)
+
+        paint.color = Color.RED
+        canvas.drawLine(clipRectLeft, clipRectTop, clipRectRight, clipRectBottom, paint)
+
+        paint.color = Color.BLUE
+        paint.textSize = textSize
+        paint.textAlign = Paint.Align.RIGHT
+        canvas.drawText(resources.getString(R.string.clipping), clipRectRight, textOffset, paint)
+    }
 }
